@@ -1,0 +1,131 @@
+{%load static%}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Build Your NBA Team</title>
+    <link rel="stylesheet" href="{% static 'css/build_team.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Build Your NBA Team</h1>
+    </header>
+    <div class="container">
+        <div class="left-panel">
+            <h2 class="players-title">Players</h2>
+            <div id="players" class="players">
+                {% for price in prices %}
+                <div class="price-group" data-price="{{ price }}">
+                    <h3 class="price-label">${{ price }}</h3>
+                    <div class="position-group">
+                        <div class="position-column">
+                            <h4>PG</h4>
+                            <div class="players-list" data-position="PG" data-price="{{ price }}">
+                                {% for player in players %}
+                                {% if player.price == price and player.position == 'PG' %}
+                                <div id="player-{{ player.id }}" data-price="{{ player.price }}" data-position="{{ player.position }}" draggable="true" class="player">
+                                    {{ player.name }}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="position-column">
+                            <h4>SG</h4>
+                            <div class="players-list" data-position="SG" data-price="{{ price }}">
+                                {% for player in players %}
+                                {% if player.price == price and player.position == 'SG' %}
+                                <div id="player-{{ player.id }}" data-price="{{ player.price }}" data-position="{{ player.position }}" draggable="true" class="player">
+                                    {{ player.name }}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="position-column">
+                            <h4>SF</h4>
+                            <div class="players-list" data-position="SF" data-price="{{ price }}">
+                                {% for player in players %}
+                                {% if player.price == price and player.position == 'SF' %}
+                                <div id="player-{{ player.id }}" data-price="{{ player.price }}" data-position="{{ player.position }}" draggable="true" class="player">
+                                    {{ player.name }}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="position-column">
+                            <h4>PF</h4>
+                            <div class="players-list" data-position="PF" data-price="{{ price }}">
+                                {% for player in players %}
+                                {% if player.price == price and player.position == 'PF' %}
+                                <div id="player-{{ player.id }}" data-price="{{ player.price }}" data-position="{{ player.position }}" draggable="true" class="player">
+                                    {{ player.name }}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="position-column">
+                            <h4>C</h4>
+                            <div class="players-list" data-position="C" data-price="{{ price }}">
+                                {% for player in players %}
+                                {% if player.price == price and player.position == 'C' %}
+                                <div id="player-{{ player.id }}" data-price="{{ player.price }}" data-position="{{ player.position }}" draggable="true" class="player">
+                                    {{ player.name }}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+            
+            <h2 class="coaches-title">Coaches</h2>
+            <div id="coaches" class="coaches-list">
+                {% for coach in coaches %}
+                <div id="coach-{{ coach.id }}" data-id="{{ coach.id }}" draggable="true" class="coach">
+                    {{ coach.name }}
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="right-panel">
+            <h2>Your Team</h2>
+            <div id="team" class="team" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <p>Drag and drop players here to build your team. ($15 Limit)</p>
+            </div>
+            <div id="coach-drop-zone" class="coach-drop-zone" ondrop="dropCoach(event)" ondragover="allowDrop(event)">
+                <p>Drag and drop your coach here.</p>
+            </div>
+            <p>Remaining Budget: $<span id="remaining-budget">15</span></p>
+            
+            <div class="strategy-container">
+                <div class="strategy-selector">
+                    <h3>Offense Strategy</h3>
+                    <button id="prev-offense-strategy">&larr;</button>
+                    <span id="offense-strategy">Princeton Offense</span>
+                    <button id="next-offense-strategy">&rarr;</button>
+                </div>
+                <div class="strategy-selector">
+                    <h3>Defense Strategy</h3>
+                    <button id="prev-defense-strategy">&larr;</button>
+                    <span id="defense-strategy">Man-on-Man</span>
+                    <button id="next-defense-strategy">&rarr;</button>
+                </div>
+            </div>
+            
+            <button id="submit-button">Submit Team</button>
+            <button id="view-teams-button">View Submitted Teams</button>
+        </div>
+    </div>
+    <script src="{% static 'js/team_builder.js' %}"></script>
+    <footer>
+        <p>&copy; 2023-2024 NBA Team Builder</p>
+    </footer>
+</body>
+</html>
